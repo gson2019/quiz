@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 
 import com.example.quiz.R
 import com.example.quiz.model.Question
+import com.example.quiz.ui.view.MainActivity
 import com.example.quiz.viewmodel.QuestionViewModel
 import kotlinx.android.synthetic.main.question_fragment.*
 
@@ -36,7 +37,7 @@ class QuestionFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mContext = context
+        mContext = context as MainActivity
     }
 
     fun updateQuestion(question: Question){
@@ -57,11 +58,11 @@ class QuestionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(QuestionViewModel::class.java)
-        viewModel.getQuestions(mContext)
+        viewModel = ViewModelProviders.of(mContext as MainActivity).get(QuestionViewModel::class.java)
+        viewModel.getQuestions(mContext as MainActivity)
         // TODO: Use the ViewModel
 
-        viewModel.questionList.observe(this, Observer {
+        viewModel.questionList.observe(mContext as MainActivity, Observer {
             updateQuestion(it[viewModel.curQuestionIndex])
         })
         nextBtn.setOnClickListener {

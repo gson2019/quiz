@@ -20,7 +20,7 @@ class WelComeFragment : Fragment() {
     lateinit var mContext: Context
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mContext = context
+        mContext = context as MainActivity
     }
 
     override fun onCreateView(
